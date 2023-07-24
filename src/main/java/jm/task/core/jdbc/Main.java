@@ -1,25 +1,27 @@
 package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.dao.UserDao;
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
 import jm.task.core.jdbc.util.Util;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        Util util = new Util();
-        util.getConnection();
+
         UserServiceImpl t = new UserServiceImpl();
 
         t.createUsersTable();
-        t.saveUser("kolya", "umnov", (byte) 22);
-        t.saveUser("lesha", "smirnov", (byte) 24);
-        t.saveUser("petya", "ivanov", (byte) 32);
-        t.saveUser("alla", "bekova", (byte) 74);
+        t.saveUser("Anna", "Andreeva", (byte) 22);
+        t.saveUser("Annet", "Vasileva", (byte) 25);
+        t.saveUser("Lena", "Nekrasova", (byte) 14);
+        t.saveUser("Andrei", "Bistrov", (byte) 33);
         System.out.println(t.getAllUsers());
         t.cleanUsersTable();
         t.dropUsersTable();
