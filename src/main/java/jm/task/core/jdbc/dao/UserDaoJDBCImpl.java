@@ -24,12 +24,16 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void createUsersTable() throws SQLException {
         try(PreparedStatement preparedStatement = connection.prepareStatement(CREATE))  {
             preparedStatement.executeUpdate();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 
     public void dropUsersTable() throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(DROP)) {
             preparedStatement.executeUpdate();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 
@@ -41,6 +45,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             preparedStatement.setByte(3, age);
 
             preparedStatement.executeUpdate();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 
@@ -49,6 +55,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         try(PreparedStatement preparedStatement = connection.prepareStatement(DELETE))  {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
 
     }
@@ -69,6 +77,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
                 userList.add(user);
             }
 
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
 
         return userList;
@@ -78,6 +88,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     public void cleanUsersTable() throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(CLEAN)) {
             preparedStatement.executeUpdate();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
 
     }
