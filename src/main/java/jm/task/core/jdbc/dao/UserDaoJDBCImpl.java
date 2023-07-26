@@ -21,23 +21,23 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     }
 
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable() {
         try(PreparedStatement preparedStatement = connection.prepareStatement(CREATE))  {
             preparedStatement.executeUpdate();
-        } catch (RuntimeException e) {
+        } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
         }
     }
 
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable() {
         try (PreparedStatement preparedStatement = connection.prepareStatement(DROP)) {
             preparedStatement.executeUpdate();
-        } catch (RuntimeException e) {
+        } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age) {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
             preparedStatement.setString(1, name);
@@ -45,23 +45,23 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             preparedStatement.setByte(3, age);
 
             preparedStatement.executeUpdate();
-        } catch (RuntimeException e) {
+        } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
         }
     }
 
-    public void removeUserById(long id) throws SQLException {
+    public void removeUserById(long id) {
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(DELETE))  {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-        } catch (RuntimeException e) {
+        } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
         }
 
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers() {
 
         List<User> userList = new ArrayList<>();
 
@@ -77,7 +77,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
                 userList.add(user);
             }
 
-        } catch (RuntimeException e) {
+        } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
         }
 
@@ -85,10 +85,10 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     }
 
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable() {
         try (PreparedStatement preparedStatement = connection.prepareStatement(CLEAN)) {
             preparedStatement.executeUpdate();
-        } catch (RuntimeException e) {
+        } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
         }
 

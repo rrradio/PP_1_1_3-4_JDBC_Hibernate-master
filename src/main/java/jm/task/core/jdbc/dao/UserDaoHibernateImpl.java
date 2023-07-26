@@ -12,9 +12,9 @@ import java.util.List;
 public class UserDaoHibernateImpl extends Util implements UserDao {
 
     private static SessionFactory connect = getSessionFactory();
-    private String CREATEHIB = "CREATE TABLE IF NOT EXISTS users( id int NOT NULL AUTO_INCREMENT, name varchar(25), lastname varchar(25), age tinyint, PRIMARY KEY (id))";
-    private String REMOVEHIB = "DROP TABLE IF EXISTS users";
-    private String CLEANHIB = "TRUNCATE TABLE users";
+    private final String CREATEHIB = "CREATE TABLE IF NOT EXISTS users( id int NOT NULL AUTO_INCREMENT, name varchar(25), lastname varchar(25), age tinyint, PRIMARY KEY (id))";
+    private final String REMOVEHIB = "DROP TABLE IF EXISTS users";
+    private final String CLEANHIB = "TRUNCATE TABLE users";
 
     public UserDaoHibernateImpl() {
 
@@ -28,7 +28,6 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             transaction = session.beginTransaction();
             Query query = session.createSQLQuery(CREATEHIB).addEntity(User.class);
             query.executeUpdate();
-         //   System.out.println("таблица создана");
             transaction.commit();
         }
     }
@@ -40,8 +39,6 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             transaction = session.beginTransaction();
             Query query = session.createSQLQuery(REMOVEHIB).addEntity(User.class);
             query.executeUpdate();
-         //   System.out.println("таблица удалена");
-
             transaction.commit();
         }
     }
@@ -53,7 +50,6 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
         try (Session session = connect.openSession()) {
             transaction = session.beginTransaction();
             session.save(user);
-          //  System.out.println("пользователь добавлен");
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -71,7 +67,6 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
         try (Session session = connect.openSession()) {
             transaction = session.beginTransaction();
             session.remove(user);
-          //  System.out.println("пользователь удален");
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -83,7 +78,6 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        Transaction transaction = null;
         try (Session session = connect.openSession()) {
             return session.createQuery("from User", User.class).list();
         }
@@ -97,7 +91,6 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             Query query = session.createSQLQuery(CLEANHIB).addEntity(User.class);
             query.executeUpdate();
             transaction.commit();
-          //  System.out.println("таблица очищена");
         }
 
     }

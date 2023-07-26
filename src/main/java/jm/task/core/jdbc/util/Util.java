@@ -31,23 +31,26 @@ public class Util {
     }
 
     public static SessionFactory getSessionFactory() {
+        final String DRIVER = "com.mysql.cj.jdbc.Driver";
+        final String URL = "jdbc:mysql://localhost:3306/new_schema";
+        final String USER = "root1";
+        final String PASS = "root";
+        final String DIALECT = "org.hibernate.dialect.MySQL5Dialect";
+        final String SHOWSQL = "true";
+        final String THREAD = "thread";
+
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
 
-                // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
-                settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/new_schema");
-                settings.put(Environment.USER, "root1");
-                settings.put(Environment.PASS, "root");
-                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-
-                settings.put(Environment.SHOW_SQL, "true");
-
-                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-
-             //   settings.put(Environment.HBM2DDL_AUTO, "create-drop");
+                settings.put(Environment.DRIVER, DRIVER);
+                settings.put(Environment.URL, URL);
+                settings.put(Environment.USER, USER);
+                settings.put(Environment.PASS, PASS);
+                settings.put(Environment.DIALECT, DIALECT);
+                settings.put(Environment.SHOW_SQL, SHOWSQL);
+                settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, THREAD);
 
                 configuration.setProperties(settings);
 
