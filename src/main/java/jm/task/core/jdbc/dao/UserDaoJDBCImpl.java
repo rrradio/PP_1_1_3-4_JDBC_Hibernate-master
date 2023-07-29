@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoJDBCImpl extends Util implements UserDao {
+public class UserDaoJDBCImpl  implements UserDao {
 
     private String CREATE = "CREATE TABLE IF NOT EXISTS users( id int NOT NULL AUTO_INCREMENT, name varchar(25), lastname varchar(25), age tinyint, PRIMARY KEY (id))";
     private String DROP = "DROP TABLE IF EXISTS users";
@@ -16,10 +16,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     private String GETALLUSERS = "select * from users";
     private String CLEAN = "TRUNCATE TABLE users";
 
-    private Connection connection = getConnection();
-    public UserDaoJDBCImpl() {
+    private Connection connection = Util.getConnection();
 
-    }
 
     public void createUsersTable() {
         try(PreparedStatement preparedStatement = connection.prepareStatement(CREATE))  {
@@ -93,4 +91,5 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         }
 
     }
+
 }

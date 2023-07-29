@@ -10,30 +10,30 @@ public class UserServiceImpl implements UserService {
 
     private UserDao k = new UserDaoHibernateImpl();
 
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable()  {
         k.createUsersTable();
 
     }
 
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable()  {
         k.dropUsersTable();
     }
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age) {
         k.saveUser(name,lastName,age);
         System.out.println("User с именем " +name+ " добавлен в базу данных");
 
     }
 
-    public void removeUserById(long id) throws SQLException {
+    public void removeUserById(long id)  {
         k.removeUserById(id);
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers()  {
         return k.getAllUsers();
     }
 
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable() {
         k.cleanUsersTable();
 
     }

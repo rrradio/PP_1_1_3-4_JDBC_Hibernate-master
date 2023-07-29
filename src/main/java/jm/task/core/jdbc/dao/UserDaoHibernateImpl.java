@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl extends Util implements UserDao {
@@ -23,23 +25,33 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
 
     @Override
     public void createUsersTable() {
-        Transaction transaction;
+        Transaction transaction = null;
         try (Session session = connect.openSession()) {
             transaction = session.beginTransaction();
             Query query = session.createSQLQuery(CREATEHIB).addEntity(User.class);
             query.executeUpdate();
             transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
     }
 
     @Override
     public void dropUsersTable() {
-        Transaction transaction;
+        Transaction transaction = null;
         try (Session session = connect.openSession()) {
             transaction = session.beginTransaction();
             Query query = session.createSQLQuery(REMOVEHIB).addEntity(User.class);
             query.executeUpdate();
             transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
     }
 
@@ -78,9 +90,17 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
+        Transaction transaction = null;
         try (Session session = connect.openSession()) {
             return session.createQuery("from User", User.class).list();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
+        return userList;
     }
 
     @Override
@@ -91,6 +111,11 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
             Query query = session.createSQLQuery(CLEANHIB).addEntity(User.class);
             query.executeUpdate();
             transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
 
     }
