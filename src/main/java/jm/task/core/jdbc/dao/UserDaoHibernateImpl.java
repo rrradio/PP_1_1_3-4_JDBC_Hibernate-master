@@ -6,8 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,13 +89,9 @@ public class UserDaoHibernateImpl extends Util implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        Transaction transaction = null;
         try (Session session = connect.openSession()) {
             return session.createQuery("from User", User.class).list();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
         }
         return userList;

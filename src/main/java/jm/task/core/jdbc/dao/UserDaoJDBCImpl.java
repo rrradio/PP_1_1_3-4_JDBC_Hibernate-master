@@ -2,21 +2,20 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl  implements UserDao {
 
-    private String CREATE = "CREATE TABLE IF NOT EXISTS users( id int NOT NULL AUTO_INCREMENT, name varchar(25), lastname varchar(25), age tinyint, PRIMARY KEY (id))";
-    private String DROP = "DROP TABLE IF EXISTS users";
-    private String SAVE = "insert into users (name, lastname, age) values (?, ?, ?)";
-    private String DELETE = "delete from users where id = ?";
-    private String GETALLUSERS = "select * from users";
-    private String CLEAN = "TRUNCATE TABLE users";
+    private final String CREATE = "CREATE TABLE IF NOT EXISTS users( id int NOT NULL AUTO_INCREMENT, name varchar(25), lastname varchar(25), age tinyint, PRIMARY KEY (id))";
+    private final String DROP = "DROP TABLE IF EXISTS users";
+    private final String SAVE = "insert into users (name, lastname, age) values (?, ?, ?)";
+    private final String DELETE = "delete from users where id = ?";
+    private final String GETALLUSERS = "select * from users";
+    private final String CLEAN = "TRUNCATE TABLE users";
 
-    private Connection connection = Util.getConnection();
+    private final Connection connection = Util.getConnection();
 
 
     public void createUsersTable() {
